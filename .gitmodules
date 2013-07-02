@@ -1,0 +1,3 @@
+[submodule "whitelabel-android-sdk"]
+	path = whitelabel-android-sdk
+	url = git@github.com:TheLevelUp/whitelabel-android-sdk.git
