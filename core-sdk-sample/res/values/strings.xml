@@ -2,6 +2,11 @@
 <resources>
 
     <string name="app_name">LevelUp SDK Sample</string>
+    <string name="intro">Select an activity from below</string>
+    <string name="button_combined">1. Combined Login/Pay activity</string>
+    <string name="button_individual">2. Individual Login/Pay activities</string>
+    <string name="button_register">3. Register</string>
+    <string name="button_payment_with_tip">4. Payment with tip</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_button_sign_in">Sign In</string>
@@ -9,5 +14,11 @@
     <string name="login_progress_message">Logging you in…</string>
     <string name="logout">Logout</string>
     <string name="payment_ineligible_notice">This account isn\'t eligible for payment. Please check the credit card(s) associated it.</string>
+    <string name="title_register">Register with LevelUp</string>
+    <string name="register_hint_last_name">Last name</string>
+    <string name="register_hint_first_name">First name</string>
+    <string name="register_button_sign_up">Sign up</string>
+    <string name="register_progress_message">Creating your account…</string>
+    <string name="register_button_sign_up_with_email">Sign up with email</string>
 
 </resources>

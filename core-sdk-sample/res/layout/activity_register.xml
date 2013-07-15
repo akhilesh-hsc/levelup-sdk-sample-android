@@ -5,10 +5,10 @@
     android:layout_height="match_parent" >
 
     <fragment
-        android:id="@+id/fragment_payment"
-        android:name="com.scvngr.levelup.core.sample.PaymentCodeFragment"
+        android:id="@+id/register_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_payment" />
+        class="com.scvngr.levelup.core.sample.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
 
 </FrameLayout>

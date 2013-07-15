@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/payment_qr_code"
         android:layout_alignTop="@id/payment_qr_code"
-        android:layout_margin="10sp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:visibility="gone" />
 

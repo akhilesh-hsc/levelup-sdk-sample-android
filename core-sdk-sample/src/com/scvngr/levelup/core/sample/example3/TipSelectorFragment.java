@@ -1,4 +1,4 @@
-package com.scvngr.levelup.core.sample;
+package com.scvngr.levelup.core.sample.example3;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,44 +9,25 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.scvngr.levelup.core.sample.R;
+
 /**
  * <p>
  * A basic tip selector fragment. This displays a {@link SeekBar} and a {@link TextView} to show the
  * current tip value.
  * </p>
- * <p>
- * To use, call {@link #newInstance(int[])} with a list of allowed tip values.
- * </p>
  */
 public class TipSelectorFragment extends Fragment {
 
     /**
-     * The fragment argument, storing the allowed tips.
+     * Although LevelUp codes can contain any tip percentage, it's simpler (in the UI) to limit them
+     * to a set of fixed values. These are percentage values.
      */
-    private static final String ARG_ALLOWED_TIPS_INT_ARRAY = TipSelectorFragment.class.getName()
-            + ".ALLOWED_TIPS";
+    public static final int[] ALLOWED_TIPS = new int[] { 0, 5, 10, 15, 20, 25 };
 
-    /**
-     * Creates a new {@link TipSelectorFragment} with the specified allowed tips.
-     * 
-     * @param allowedTips a list of percentage tips that are user-selectable.
-     * @return a new instance of this fragment.
-     */
-    public static final TipSelectorFragment newInstance(int[] allowedTips) {
-        Bundle args = new Bundle(1);
-        args.putIntArray(ARG_ALLOWED_TIPS_INT_ARRAY, allowedTips);
-
-        TipSelectorFragment fragment = new TipSelectorFragment();
-        fragment.setArguments(args);
-
-        return fragment;
+    public static final TipSelectorFragment newInstance() {
+        return new TipSelectorFragment();
     }
-
-    /**
-     * The list of allowed tip values. This is passed in by the {@link #ARG_ALLOWED_TIPS_INT_ARRAY}
-     * fragment argument or by {@link #newInstance(int[])}.
-     */
-    private int[] mAllowedTips;
 
     /**
      * When the tip selector changes (the SeekBar), the tip values are updated in both the text
@@ -55,10 +36,10 @@ public class TipSelectorFragment extends Fragment {
     private OnSeekBarChangeListener mOnSeekBarChange = new OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            mTipValueView.setText(Integer.toString(mAllowedTips[progress]) + "% tip");
+            mTipValueView.setText(Integer.toString(ALLOWED_TIPS[progress]) + "% tip");
 
             if (mOnTipChangedListener != null) {
-                mOnTipChangedListener.onTipChanged(mAllowedTips[progress]);
+                mOnTipChangedListener.onTipChanged(ALLOWED_TIPS[progress]);
             }
         }
 
@@ -81,13 +62,6 @@ public class TipSelectorFragment extends Fragment {
     private TextView mTipValueView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mAllowedTips = getArguments().getIntArray(ARG_ALLOWED_TIPS_INT_ARRAY);
-    }
-
-    @Override
     public View
             onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -103,7 +77,7 @@ public class TipSelectorFragment extends Fragment {
         mTipValueView = (TextView) view.findViewById(R.id.tip_value);
 
         // The progress on the SeekBar represents the indices of valid tip values.
-        tipSelector.setMax(mAllowedTips.length - 1);
+        tipSelector.setMax(ALLOWED_TIPS.length - 1);
         tipSelector.setOnSeekBarChangeListener(mOnSeekBarChange);
 
         mOnSeekBarChange.onProgressChanged(tipSelector, 0, false);

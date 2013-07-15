@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/error_message"
         android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@+id/error_message"
         android:ems="10"
         android:hint="@string/login_hint_email"
         android:inputType="textEmailAddress" >
@@ -46,14 +46,11 @@
         android:layout_below="@+id/password"
         android:text="@string/login_button_sign_in" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/sign_in"
-        android:text="@string/login_with_level_up"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@id/sign_in"
+        android:text="@string/register_button_sign_up_with_email" />
 
 </RelativeLayout>

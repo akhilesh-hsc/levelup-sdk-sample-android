@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.support.v4.content.AsyncTaskLoader;
 import android.text.TextUtils;
 
@@ -18,6 +19,7 @@ import com.scvngr.levelup.core.net.AbstractRequest;
 import com.scvngr.levelup.core.net.ApiStatus;
 import com.scvngr.levelup.core.net.LevelUpWebServiceConnection;
 import com.scvngr.levelup.core.net.LevelUpWebServiceResponse;
+import com.scvngr.levelup.core.sample.Constants;
 import com.scvngr.levelup.core.sample.net.RequestLoader.RequestResult;
 import com.scvngr.levelup.core.util.LogManager;
 
@@ -62,6 +64,11 @@ public class RequestLoader<T extends Parcelable> extends AsyncTaskLoader<Request
                 LevelUpWebServiceConnection.newInstance(getContext());
         LogManager.v("Sending request %s...", mRequest);
         LevelUpWebServiceResponse response = connection.send(mRequest);
+
+        if (Constants.ASYNC_BACKGROUND_TASK_DELAY_ENABLED) {
+            SystemClock.sleep(Constants.ASYNC_BACKGROUND_TASK_DELAY_MS);
+        }
+
         LogManager.v("Got response %s", response);
 
         String data = response.getData();

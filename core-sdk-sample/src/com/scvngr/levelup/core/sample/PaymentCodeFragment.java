@@ -3,6 +3,7 @@ package com.scvngr.levelup.core.sample;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -28,7 +29,9 @@ import com.scvngr.levelup.core.ui.view.LevelUpCodeView;
 import com.scvngr.levelup.core.ui.view.LevelUpCodeView.OnCodeLoadListener;
 
 /**
- * A fragment that displays the user's LevelUp payment code.
+ * A fragment that displays the user's LevelUp payment code. This also refreshes the cached payment
+ * token or loads one if one hasn't been cached yet. If the user is no longer payment eligible, it
+ * displays a message instead of the QR code.
  */
 public final class PaymentCodeFragment extends Fragment {
 
@@ -188,6 +191,22 @@ public final class PaymentCodeFragment extends Fragment {
     }
 
     /**
+     * Called once the payment token has been loaded to pre-cache the images.
+     */
+    private void preCacheDeferredCodes() {
+        String paymentToken = getCachedPaymentToken();
+
+        /*
+         * If the payment token is null here, it's most likely due to the user being payment
+         * ineligible.
+         */
+        if (mPreCacheTipsWasDeferred && paymentToken != null) {
+            preCacheCodesForTipsInternal(paymentToken, mPreCacheTips);
+            mPreCacheTipsWasDeferred = false;
+        }
+    }
+
+    /**
      * Set the color that the dock turns when the code is scanned.
      * 
      * @param color the color index, between 0 and 9 inclusive.
@@ -246,6 +265,10 @@ public final class PaymentCodeFragment extends Fragment {
      *        {@link #UI_STATE_SHOWING_CODE}.
      */
     private void setUiState(int uiState) {
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            throw new IllegalStateException("Must be called from main thread");
+        }
+
         int qrCodeVisibility;
         int progressVisibility;
         int errorMessageVisibility;
@@ -275,7 +298,7 @@ public final class PaymentCodeFragment extends Fragment {
 
         View fragmentView = getView();
 
-        fragmentView.findViewById(R.id.payment_qr_code).setVisibility(qrCodeVisibility);
+        mCodeView.setVisibility(qrCodeVisibility);
         fragmentView.findViewById(R.id.progress).setVisibility(progressVisibility);
         fragmentView.findViewById(R.id.error_message).setVisibility(errorMessageVisibility);
     }
@@ -337,18 +360,6 @@ public final class PaymentCodeFragment extends Fragment {
         for (int tipPercent : tips) {
             mCodeLoader.loadLevelUpCode(LevelUpCode.encodeLevelUpCode(cachedPaymentToken, mColor,
                     tipPercent));
-        }
-    }
-
-    /**
-     * Called once the payment token has been loaded to pre-cache the images.
-     */
-    private void preCacheDeferredCodes() {
-        String paymentToken = getCachedPaymentToken();
-
-        if (mPreCacheTipsWasDeferred && paymentToken != null) {
-            preCacheCodesForTipsInternal(paymentToken, mPreCacheTips);
-            mPreCacheTipsWasDeferred = false;
         }
     }
 

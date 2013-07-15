@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="@string/intro"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+    <Button
+        android:id="@+id/button_combined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_combined" />
+
+    <Button
+        android:id="@+id/button_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_individual" />
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_register" />
+
+    <Button
+        android:id="@+id/button_payment_with_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_payment_with_tip" />
+
+</LinearLayout>
