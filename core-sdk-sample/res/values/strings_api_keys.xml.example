@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="levelup_oauth_client_id"></string>
+    <string name="levelup_facebook_app_id"></string>
+    <string name="levelup_braintree_clientside_encryption_key" formatted="false" translatable="false"></string>
+
+</resources>

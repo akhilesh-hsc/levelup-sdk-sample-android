@@ -4,3 +4,4 @@ bin/
 core-sdk-sample/.classpath
 core-sdk-sample/.project
 core-sdk-sample/.settings
+core-sdk-sample/res/values/strings_api_keys.xml
