@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import com.scvngr.levelup.core.sample.example1.LoginAndPaymentActivity;
 import com.scvngr.levelup.core.sample.example2.PaymentActivity;
 import com.scvngr.levelup.core.sample.example3.PaymentWithTipActivity;
+import com.scvngr.levelup.core.sample.example4.CreditCardAddActivity;
 
 /**
  * Launcher for the various demos.
@@ -25,6 +26,7 @@ public class DemoActivity extends FragmentActivity implements OnClickListener {
         findViewById(R.id.button_individual).setOnClickListener(this);
         findViewById(R.id.button_register).setOnClickListener(this);
         findViewById(R.id.button_payment_with_tip).setOnClickListener(this);
+        findViewById(R.id.button_credit_card_add).setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +43,9 @@ public class DemoActivity extends FragmentActivity implements OnClickListener {
                 break;
             case R.id.button_payment_with_tip:
                 startActivity(new Intent(this, PaymentWithTipActivity.class));
+                break;
+            case R.id.button_credit_card_add:
+                startActivity(new Intent(this, CreditCardAddActivity.class));
                 break;
             default:
                 // Do nothing.

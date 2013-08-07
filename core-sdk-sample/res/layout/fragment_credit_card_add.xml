@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/error_general"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#f00"
+        android:textColor="#fff"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/credit_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/error_general"
+        android:ems="10"
+        android:hint="@string/card_add_hint_credit_card_number"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/text_expiration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/expiration_month"
+        android:layout_below="@+id/credit_card_number"
+        android:text="@string/card_add_hint_expiration" />
+
+    <EditText
+        android:id="@+id/expiration_month"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/credit_card_number"
+        android:layout_toRightOf="@+id/text_expiration"
+        android:ems="10"
+        android:hint="@string/card_add_hint_expiration_month"
+        android:inputType="number"
+        android:maxLength="2" />
+
+    <EditText
+        android:id="@+id/expiration_year"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/credit_card_number"
+        android:layout_toRightOf="@+id/expiration_month"
+        android:ems="10"
+        android:hint="@string/card_add_hint_expiration_year"
+        android:inputType="number"
+        android:maxLength="4" />
+
+    <EditText
+        android:id="@+id/cvv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/text_expiration"
+        android:ems="10"
+        android:hint="@string/card_add_hint_cvv"
+        android:inputType="number" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/postal_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/cvv"
+        android:ems="10"
+        android:hint="@string/card_add_hint_postal_code"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_credit_card_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/postal_code"
+        android:text="@string/button_card_add" />
+
+</RelativeLayout>

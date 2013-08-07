@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.Loader;
 
 /**
- * A simple indeterminate progress dialog for displaying the login message.
+ * A simple indeterminate progress dialog for displaying a progress message.
  */
 public class ProgressFragment extends DialogFragment {
 

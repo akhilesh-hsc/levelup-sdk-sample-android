@@ -1,11 +1,5 @@
 package com.scvngr.levelup.core.sample.net;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -22,6 +16,12 @@ import com.scvngr.levelup.core.net.LevelUpWebServiceResponse;
 import com.scvngr.levelup.core.sample.Constants;
 import com.scvngr.levelup.core.sample.net.RequestLoader.RequestResult;
 import com.scvngr.levelup.core.util.LogManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * <p>
@@ -62,9 +62,11 @@ public class RequestLoader<T extends Parcelable> extends AsyncTaskLoader<Request
 
         LevelUpWebServiceConnection connection =
                 LevelUpWebServiceConnection.newInstance(getContext());
+
         LogManager.v("Sending request %s...", mRequest);
         LevelUpWebServiceResponse response = connection.send(mRequest);
 
+        // A helpful delay for debugging. See Constants.
         if (Constants.ASYNC_BACKGROUND_TASK_DELAY_ENABLED) {
             SystemClock.sleep(Constants.ASYNC_BACKGROUND_TASK_DELAY_MS);
         }
@@ -103,8 +105,7 @@ public class RequestLoader<T extends Parcelable> extends AsyncTaskLoader<Request
     public void deliverResult(RequestResult<T> data) {
         mResult = data;
 
-        if (isStarted()) {
-            LogManager.d("Delivering response to callbacks: %s", data);
+        if (isStarted() && !isAbandoned()) {
             super.deliverResult(data);
         }
     }
@@ -118,11 +119,13 @@ public class RequestLoader<T extends Parcelable> extends AsyncTaskLoader<Request
 
     @Override
     protected void onStartLoading() {
+        /*
+         * When starting the loader, if there's a result already, deliver it instead of loading it
+         * again from the network.
+         */
         if (mResult != null) {
             deliverResult(mResult);
-        }
-
-        if (takeContentChanged() || mResult == null) {
+        } else {
             forceLoad();
         }
     }

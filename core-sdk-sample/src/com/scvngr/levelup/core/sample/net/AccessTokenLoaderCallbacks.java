@@ -1,18 +1,17 @@
 package com.scvngr.levelup.core.sample.net;
 
-import java.lang.ref.WeakReference;
-
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.Loader;
 
 import com.scvngr.levelup.core.model.AccessToken;
 import com.scvngr.levelup.core.model.factory.json.AccessTokenJsonFactory;
 import com.scvngr.levelup.core.net.ApiStatus;
 import com.scvngr.levelup.core.net.request.factory.AccessTokenRequestFactory;
+import com.scvngr.levelup.core.sample.ProgressDialogLoaderCallbacks;
 import com.scvngr.levelup.core.sample.ProgressFragment;
 import com.scvngr.levelup.core.sample.R;
 import com.scvngr.levelup.core.sample.SharedPreferencesKeys;
@@ -24,53 +23,41 @@ import com.scvngr.levelup.core.util.LogManager;
  * String arguments: {@link #ARG_EMAIL} and {@link #ARG_PASSWORD}. Access tokens are given to
  * clients and are intended to be stored indefinitely.
  */
-public class AccessTokenLoaderCallbacks implements LoaderCallbacks<RequestResult<AccessToken>> {
+public class AccessTokenLoaderCallbacks extends
+        ProgressDialogLoaderCallbacks<RequestResult<AccessToken>> {
+    public static final String ARG_EMAIL = "email";
+
+    public static final String ARG_PASSWORD = "password";
     public static final String FRAGMENT_TAG_LOGIN_PROGRESS = ProgressFragment.class.getName()
             + AccessTokenLoaderCallbacks.class.getName();
 
-    public static final String ARG_EMAIL = "email";
-    public static final String ARG_PASSWORD = "password";
-
     private OnLoginListener mOnLoginListener;
 
-    /*
-     * By only holding onto weak references here, we can make sure we don't accidentally prevent an
-     * activity from being garbage collected.
-     */
-    private WeakReference<FragmentActivity> mFragmentActivity;
-
     /**
-     * @param activity the activity hosting these callbacks. This class only holds onto a weak
+     * @param fragment the fragment hosting these callbacks. This class only holds onto a weak
      *        reference of this.
+     * @param loaderId the loader ID that will be used to load this access token.
      */
-    public AccessTokenLoaderCallbacks(FragmentActivity activity) {
-        mFragmentActivity = new WeakReference<FragmentActivity>(activity);
-    }
-
-    /**
-     * @param onLoginListener the listener to be called when login events occur. This can be null.
-     */
-    public void setOnLoginListener(OnLoginListener onLoginListener) {
-        mOnLoginListener = onLoginListener;
+    public AccessTokenLoaderCallbacks(Fragment fragment, int loaderId) {
+        super(fragment, loaderId, R.string.login_with_level_up, R.string.login_progress_message,
+                FRAGMENT_TAG_LOGIN_PROGRESS);
     }
 
     @Override
     public Loader<RequestResult<AccessToken>> onCreateLoader(int id, Bundle args) {
+        super.onCreateLoader(id, args);
+
         String email = args.getString(ARG_EMAIL);
         String password = args.getString(ARG_PASSWORD);
 
-        FragmentActivity activity = mFragmentActivity.get();
-
         // If the activity is finishing or gone, bail.
-        if (activity == null || activity.isFinishing()) {
+        if (isFinishingOrGone()) {
             return null;
         }
 
-        ProgressFragment.newInstance(R.string.login_with_level_up, R.string.login_progress_message)
-                .show(activity.getSupportFragmentManager(), FRAGMENT_TAG_LOGIN_PROGRESS);
-
-        return new RequestLoader<AccessToken>(activity,
-                new AccessTokenRequestFactory(activity).buildLoginRequest(email, password),
+        Context context = getApplicationContext();
+        return new RequestLoader<AccessToken>(context,
+                new AccessTokenRequestFactory(context).buildLoginRequest(email, password),
                 new AccessTokenJsonFactory());
     }
 
@@ -82,16 +69,7 @@ public class AccessTokenLoaderCallbacks implements LoaderCallbacks<RequestResult
     @Override
     public void onLoadFinished(Loader<RequestResult<AccessToken>> loader,
             RequestResult<AccessToken> result) {
-
-        FragmentActivity activity = mFragmentActivity.get();
-
-        // Context is needed for everything, including saving the result.
-        if (activity == null) {
-            LogManager.d("Activity has gone away. Not handling result just yet.");
-            return;
-        }
-
-        dismissProgressDialog();
+        super.onLoadFinished(loader, result);
 
         // When the server responds with a 200 OK, that signals a successful login.
         if (result.getResponse().getStatus().equals(ApiStatus.OK)) {
@@ -104,7 +82,7 @@ public class AccessTokenLoaderCallbacks implements LoaderCallbacks<RequestResult
              */
             if (accessToken != null) {
                 SharedPreferences preferences =
-                        PreferenceManager.getDefaultSharedPreferences(activity);
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                 // Store the result in the preferences.
                 preferences
@@ -120,24 +98,16 @@ public class AccessTokenLoaderCallbacks implements LoaderCallbacks<RequestResult
         }
     }
 
-    private void dispatchOnLogin(AccessToken accessToken) {
-        FragmentActivity activity = mFragmentActivity.get();
-
-        // If the activity is finishing or gone, bail.
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
-
-        if (mOnLoginListener != null) {
-            mOnLoginListener.onLogin(accessToken);
-        }
+    /**
+     * @param onLoginListener the listener to be called when login events occur. This can be null.
+     */
+    public void setOnLoginListener(OnLoginListener onLoginListener) {
+        mOnLoginListener = onLoginListener;
     }
 
     private void dispatchOnError(RequestResult<AccessToken> result) {
-        FragmentActivity activity = mFragmentActivity.get();
-
         // If the activity is finishing or gone, bail.
-        if (activity == null || activity.isFinishing()) {
+        if (isFinishingOrGone()) {
             return;
         }
 
@@ -146,19 +116,14 @@ public class AccessTokenLoaderCallbacks implements LoaderCallbacks<RequestResult
         }
     }
 
-    private void dismissProgressDialog() {
-        FragmentActivity activity = mFragmentActivity.get();
-
-        if (activity == null || activity.isFinishing()) {
+    private void dispatchOnLogin(AccessToken accessToken) {
+        // If the activity is finishing or gone, bail.
+        if (isFinishingOrGone()) {
             return;
         }
 
-        ProgressFragment progressFragment =
-                (ProgressFragment) activity.getSupportFragmentManager().findFragmentByTag(
-                        FRAGMENT_TAG_LOGIN_PROGRESS);
-
-        if (progressFragment != null && progressFragment.isAdded()) {
-            progressFragment.dismissAllowingStateLoss();
+        if (mOnLoginListener != null) {
+            mOnLoginListener.onLogin(accessToken);
         }
     }
 
@@ -167,17 +132,17 @@ public class AccessTokenLoaderCallbacks implements LoaderCallbacks<RequestResult
      */
     public interface OnLoginListener {
         /**
-         * Called when the a login successfully occurs.
-         * 
-         * @param accessToken the new access token.
-         */
-        public void onLogin(AccessToken accessToken);
-
-        /**
          * Called when an error occurs.
          * 
          * @param result
          */
         public void onError(RequestResult<AccessToken> result);
+
+        /**
+         * Called when the a login successfully occurs.
+         * 
+         * @param accessToken the new access token.
+         */
+        public void onLogin(AccessToken accessToken);
     }
 }

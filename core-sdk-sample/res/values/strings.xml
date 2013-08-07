@@ -3,10 +3,11 @@
 
     <string name="app_name">LevelUp SDK Sample</string>
     <string name="intro">Select an activity from below</string>
-    <string name="button_combined">1. Combined Login/Pay activity</string>
-    <string name="button_individual">2. Individual Login/Pay activities</string>
-    <string name="button_register">3. Register</string>
-    <string name="button_payment_with_tip">4. Payment with tip</string>
+    <string name="menu_combined">1. Combined Login/Pay activity</string>
+    <string name="menu_individual">2. Individual Login/Pay activities</string>
+    <string name="menu_register">3. Register</string>
+    <string name="menu_payment_with_tip">4. Payment with tip</string>
+    <string name="menu_credit_card_add">5. Add Credit Card</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_button_sign_in">Sign In</string>
@@ -20,5 +21,14 @@
     <string name="register_button_sign_up">Sign up</string>
     <string name="register_progress_message">Creating your account…</string>
     <string name="register_button_sign_up_with_email">Sign up with email</string>
+    <string name="title_credit_card_add">Add a Credit Card</string>
+    <string name="card_add_hint_credit_card_number">Card Number</string>
+    <string name="card_add_hint_expiration">Expiration Date</string>
+    <string name="card_add_hint_expiration_month">Month</string>
+    <string name="card_add_hint_expiration_year">Year</string>
+    <string name="card_add_hint_postal_code">Zip Code</string>
+    <string name="card_add_hint_cvv">CVV (Security Code)</string>
+    <string name="button_card_add">Add Card</string>
+    <string name="card_add_progress">Adding your card…</string>
 
 </resources>

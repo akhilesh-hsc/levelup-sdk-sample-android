@@ -1,8 +1,5 @@
 package com.scvngr.levelup.core.sample;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,25 +11,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.scvngr.levelup.core.model.AccessToken;
-import com.scvngr.levelup.core.model.Error;
 import com.scvngr.levelup.core.model.User;
 import com.scvngr.levelup.core.model.factory.json.UserJsonFactory;
 import com.scvngr.levelup.core.net.AbstractRequest;
 import com.scvngr.levelup.core.net.ApiStatus;
 import com.scvngr.levelup.core.net.request.factory.UserRequestFactory;
 import com.scvngr.levelup.core.sample.net.AccessTokenLoaderCallbacks;
-import com.scvngr.levelup.core.sample.net.RequestLoader;
 import com.scvngr.levelup.core.sample.net.AccessTokenLoaderCallbacks.OnLoginListener;
+import com.scvngr.levelup.core.sample.net.RequestLoader;
 import com.scvngr.levelup.core.sample.net.RequestLoader.RequestResult;
+
+import java.util.List;
 
 /**
  * <p>
@@ -54,26 +50,22 @@ public class RegisterFragment extends Fragment {
     private LoaderCallbacks<RequestResult<User>> mRegisterLoaderCallbacks =
             new RegisterLoaderCallbacks();
 
-    /**
-     * A mapping of web service field names to actual fields in the UI. The keys are a composite of
-     * the two parameters that are returned value from the web service.
-     */
-    private static HashMap<String, Integer> PARAMETER_TO_FIELD_MAPPING =
-            new HashMap<String, Integer>();
+    public RegisterFragment() {
+        mErrorResponseVisualizer.addMapping(UserRequestFactory.OUTER_PARAM_USER,
+                UserRequestFactory.PARAM_FIRST_NAME, R.id.first_name);
 
-    static {
-        PARAMETER_TO_FIELD_MAPPING.put(UserRequestFactory.OUTER_PARAM_USER + "."
-                + UserRequestFactory.PARAM_FIRST_NAME, R.id.first_name);
+        mErrorResponseVisualizer.addMapping(UserRequestFactory.OUTER_PARAM_USER,
+                UserRequestFactory.PARAM_LAST_NAME, R.id.last_name);
 
-        PARAMETER_TO_FIELD_MAPPING.put(UserRequestFactory.OUTER_PARAM_USER + "."
-                + UserRequestFactory.PARAM_LAST_NAME, R.id.last_name);
+        mErrorResponseVisualizer.addMapping(UserRequestFactory.OUTER_PARAM_USER,
+                UserRequestFactory.PARAM_EMAIL, R.id.email);
 
-        PARAMETER_TO_FIELD_MAPPING.put(UserRequestFactory.OUTER_PARAM_USER + "."
-                + UserRequestFactory.PARAM_EMAIL, R.id.email);
-
-        PARAMETER_TO_FIELD_MAPPING.put(UserRequestFactory.OUTER_PARAM_USER + "."
-                + UserRequestFactory.PARAM_PASSWORD, R.id.password);
+        mErrorResponseVisualizer.addMapping(UserRequestFactory.OUTER_PARAM_USER,
+                UserRequestFactory.PARAM_PASSWORD, R.id.password);
     }
+
+    private ErrorResponseVisualizer mErrorResponseVisualizer = new ErrorResponseVisualizer(
+            R.id.error_general);
 
     private OnLoginListener mOnLoginListener = new OnLoginListener() {
 
@@ -86,7 +78,7 @@ public class RegisterFragment extends Fragment {
 
         @Override
         public void onError(RequestResult<AccessToken> result) {
-            showErrors(result.getErrors());
+            mErrorResponseVisualizer.showErrors(getView(), result.getErrors());
         }
     };
 
@@ -117,6 +109,10 @@ public class RegisterFragment extends Fragment {
 
         LoaderManager loaderManager = getLoaderManager();
 
+        if (mAccessTokenLoaderCallbacks != null) {
+            mAccessTokenLoaderCallbacks.reconnectOrDismiss();
+        }
+
         // Reconnect the loader callbacks.
         if (loaderManager.getLoader(LOADER_LOGIN) != null) {
             loaderManager.initLoader(LOADER_LOGIN, null, mAccessTokenLoaderCallbacks);
@@ -129,8 +125,9 @@ public class RegisterFragment extends Fragment {
 
     /**
      * Called when the register request has finished. This calls
-     * {@link #onSuccessfulRegistration(User)} or {@link #showErrors(List)} depending on the web
-     * service result. This must be called on the main thread.
+     * {@link #onSuccessfulRegistration(User)} or
+     * {@link ErrorResponseVisualizer#showErrors(View, List)} depending on the web service result.
+     * This must be called on the main thread.
      * 
      * @param result the result of registration.
      */
@@ -140,7 +137,7 @@ public class RegisterFragment extends Fragment {
 
             onSuccessfulRegistration(user);
         } else {
-            showErrors(result.getErrors());
+            mErrorResponseVisualizer.showErrors(getView(), result.getErrors());
         }
     }
 
@@ -163,7 +160,7 @@ public class RegisterFragment extends Fragment {
         args.putString(AccessTokenLoaderCallbacks.ARG_EMAIL, getTrimmedTextFromView(R.id.email));
         args.putString(AccessTokenLoaderCallbacks.ARG_PASSWORD, getPasswordFromView());
 
-        mAccessTokenLoaderCallbacks = new AccessTokenLoaderCallbacks(getActivity());
+        mAccessTokenLoaderCallbacks = new AccessTokenLoaderCallbacks(this, LOADER_LOGIN);
 
         mAccessTokenLoaderCallbacks.setOnLoginListener(mOnLoginListener);
 
@@ -213,62 +210,6 @@ public class RegisterFragment extends Fragment {
         args.putString(RegisterLoaderCallbacks.ARG_PASSWORD, password);
 
         getLoaderManager().restartLoader(LOADER_REGISTER, args, mRegisterLoaderCallbacks);
-    }
-
-    /**
-     * Maps all error messages to the field that generated them. This uses
-     * {@link #PARAMETER_TO_FIELD_MAPPING}, which maps API-defined parameters to the
-     * {@link EditText} view associated with them.
-     * 
-     * @param errors the errors to show. This must not be null, but can be empty.
-     */
-    private void showErrors(List<Error> errors) {
-        View v = getView();
-
-        // Clear any previously-set error messages.
-        for (int errorableFields : PARAMETER_TO_FIELD_MAPPING.values()) {
-            ((EditText) v.findViewById(errorableFields)).setError(null);
-        }
-
-        StringBuilder extraErrors = new StringBuilder();
-
-        // Set the error message on any field.
-        for (Error error : errors) {
-            String key = error.getObject() + "." + error.getProperty();
-            Integer fieldId = PARAMETER_TO_FIELD_MAPPING.get(key);
-
-            if (fieldId != null) {
-                EditText erroringField = (EditText) v.findViewById(fieldId);
-                CharSequence existingError = erroringField.getError();
-
-                if (!TextUtils.isEmpty(existingError)) {
-                    erroringField.setError(existingError + "\n" + error.getMessage());
-                } else {
-                    erroringField.setError(error.getMessage());
-                }
-
-                erroringField.requestFocus();
-            } else {
-                if (extraErrors.length() > 0) {
-                    extraErrors.append("\n");
-                }
-
-                extraErrors.append(error.getMessage());
-            }
-        }
-
-        /*
-         * For any extra error messages that don't map to a field, show them in an error overflow
-         * view.
-         */
-        TextView extraErrorView = (TextView) v.findViewById(R.id.error_general);
-        extraErrorView.setText(extraErrors);
-
-        if (extraErrors.length() > 0) {
-            extraErrorView.setVisibility(View.VISIBLE);
-        } else {
-            extraErrorView.setVisibility(View.GONE);
-        }
     }
 
     /**

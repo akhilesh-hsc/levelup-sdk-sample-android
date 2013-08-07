@@ -16,24 +16,30 @@
         android:id="@+id/button_combined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_combined" />
+        android:text="@string/menu_combined" />
 
     <Button
         android:id="@+id/button_individual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_individual" />
+        android:text="@string/menu_individual" />
 
     <Button
         android:id="@+id/button_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_register" />
+        android:text="@string/menu_register" />
 
     <Button
         android:id="@+id/button_payment_with_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_payment_with_tip" />
+        android:text="@string/menu_payment_with_tip" />
+
+    <Button
+        android:id="@+id/button_credit_card_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_credit_card_add" />
 
 </LinearLayout>

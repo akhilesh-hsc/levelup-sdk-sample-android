@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +16,9 @@ import android.widget.TextView;
 
 import com.scvngr.levelup.core.model.AccessToken;
 import com.scvngr.levelup.core.sample.net.AccessTokenLoaderCallbacks;
-import com.scvngr.levelup.core.sample.net.RequestResultUtil;
 import com.scvngr.levelup.core.sample.net.AccessTokenLoaderCallbacks.OnLoginListener;
 import com.scvngr.levelup.core.sample.net.RequestLoader.RequestResult;
+import com.scvngr.levelup.core.sample.net.RequestResultUtil;
 
 /**
  * <p>
@@ -61,7 +60,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAccessTokenLoaderCallbacks = new AccessTokenLoaderCallbacks(getActivity());
+        mAccessTokenLoaderCallbacks = new AccessTokenLoaderCallbacks(this, LOADER_ACCESS_TOKEN);
         mAccessTokenLoaderCallbacks.setOnLoginListener(new WrappingOnLoginListener());
     }
 
@@ -83,20 +82,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        /*
-         * If there's an existing loader, reconnect to it so the callbacks are delivered. This would
-         * happen if the user made the request and wandered away from the activity (say, by an
-         * incoming call or to check their email) before the loader finished. When they returned,
-         * the result would be delivered here.
-         */
-        Loader<Object> existingLoader = getLoaderManager().getLoader(LOADER_ACCESS_TOKEN);
-
-        if (existingLoader != null) {
-            getLoaderManager().initLoader(LOADER_ACCESS_TOKEN, null, mAccessTokenLoaderCallbacks);
-        } else {
-            ProgressFragment.dismissAnyShowing(getFragmentManager(),
-                    AccessTokenLoaderCallbacks.FRAGMENT_TAG_LOGIN_PROGRESS);
-        }
+        mAccessTokenLoaderCallbacks.reconnectOrDismiss();
     }
 
     @Override
