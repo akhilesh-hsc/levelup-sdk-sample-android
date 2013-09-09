@@ -1,7 +1,7 @@
-Core SDK Sample
-===============
+LevelUp SDK Android Sample
+==========================
 
-This project is an example of how to use the LevelUp Core SDK to add the
+This project is an example of how to use the LevelUp SDK to add the
 ability to pay using LevelUp to your app.
 
 This demonstrates logging in, registering, and paying as well a sample of how
@@ -28,5 +28,5 @@ key. At the moment, the method for acquiring said key is out of the scope of
 this document.
 
 Once you have it, copy `doc/strings_api_keys.xml` to
-`core-sdk-sample/res/values/strings_api_keys.xml` then place the key in the
-`levelup_oauth_client_id` string.
+`levelup-sdk-sample/res/values/strings_api_keys.xml` then place the key in the
+`levelup_api_key` string.

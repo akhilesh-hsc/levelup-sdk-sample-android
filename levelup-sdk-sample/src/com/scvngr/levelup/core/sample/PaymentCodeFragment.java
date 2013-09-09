@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.scvngr.levelup.core.model.PaymentToken;
 import com.scvngr.levelup.core.model.factory.json.PaymentTokenJsonFactory;
 import com.scvngr.levelup.core.model.qr.LevelUpCode;
-import com.scvngr.levelup.core.net.ApiStatus;
+import com.scvngr.levelup.core.net.LevelUpStatus;
 import com.scvngr.levelup.core.net.request.factory.PaymentTokenRequestFactory;
 import com.scvngr.levelup.core.sample.net.RequestLoader;
 import com.scvngr.levelup.core.sample.net.RequestLoader.RequestResult;
@@ -439,15 +439,15 @@ public final class PaymentCodeFragment extends Fragment {
         @Override
         public void onLoadFinished(Loader<RequestResult<PaymentToken>> loader,
                 RequestResult<PaymentToken> result) {
-            ApiStatus status = result.getResponse().getStatus();
+            LevelUpStatus status = result.getResponse().getStatus();
 
-            if (status.equals(ApiStatus.OK)) {
+            if (status.equals(LevelUpStatus.OK)) {
                 PaymentToken paymentToken = result.getResult();
 
                 onPaymentTokenLoaded(paymentToken);
             } else {
                 // Not found for this endpoint means "payment ineligible".
-                if (status.equals(ApiStatus.ERROR_NOT_FOUND)) {
+                if (status.equals(LevelUpStatus.ERROR_NOT_FOUND)) {
                     onPaymentIneligible();
                 } else {
                     showErrorMessage(RequestResultUtil.errorsToString(result));

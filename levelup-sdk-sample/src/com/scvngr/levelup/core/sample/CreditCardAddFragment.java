@@ -17,7 +17,7 @@ import com.scvngr.levelup.core.model.CreditCard;
 import com.scvngr.levelup.core.model.Error;
 import com.scvngr.levelup.core.model.factory.json.CreditCardJsonFactory;
 import com.scvngr.levelup.core.net.AbstractRequest;
-import com.scvngr.levelup.core.net.ApiStatus;
+import com.scvngr.levelup.core.net.LevelUpStatus;
 import com.scvngr.levelup.core.net.request.factory.CreditCardRequestFactory;
 import com.scvngr.levelup.core.sample.net.RequestLoader;
 import com.scvngr.levelup.core.sample.net.RequestLoader.RequestResult;
@@ -256,7 +256,7 @@ public class CreditCardAddFragment extends Fragment implements OnClickListener {
                 RequestResult<CreditCard> result) {
             super.onLoadFinished(loader, result);
 
-            if (result.getResponse().getStatus() == ApiStatus.OK) {
+            if (result.getResponse().getStatus() == LevelUpStatus.OK) {
                 onCardAdded();
             } else {
                 showAnyErrors(result);

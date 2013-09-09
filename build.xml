@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="LevelUpSDKSample" default="help">
-    <target name="dist-source">
-        <ant target="dist-source" dir="core-sdk-sample" />
-        <ant target="dist-source" dir="whitelabel-android-sdk/levelup-core-lib" />
-    </target>
-</project>

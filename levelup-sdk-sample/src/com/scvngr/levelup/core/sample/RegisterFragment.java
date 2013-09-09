@@ -21,7 +21,7 @@ import com.scvngr.levelup.core.model.AccessToken;
 import com.scvngr.levelup.core.model.User;
 import com.scvngr.levelup.core.model.factory.json.UserJsonFactory;
 import com.scvngr.levelup.core.net.AbstractRequest;
-import com.scvngr.levelup.core.net.ApiStatus;
+import com.scvngr.levelup.core.net.LevelUpStatus;
 import com.scvngr.levelup.core.net.request.factory.UserRequestFactory;
 import com.scvngr.levelup.core.sample.net.AccessTokenLoaderCallbacks;
 import com.scvngr.levelup.core.sample.net.AccessTokenLoaderCallbacks.OnLoginListener;
@@ -132,7 +132,7 @@ public class RegisterFragment extends Fragment {
      * @param result the result of registration.
      */
     protected void onRegisterLoadFinished(RequestResult<User> result) {
-        if (result.getResponse().getStatus().equals(ApiStatus.OK)) {
+        if (result.getResponse().getStatus().equals(LevelUpStatus.OK)) {
             User user = result.getResult();
 
             onSuccessfulRegistration(user);

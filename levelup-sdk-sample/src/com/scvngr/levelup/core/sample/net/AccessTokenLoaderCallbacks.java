@@ -9,7 +9,7 @@ import android.support.v4.content.Loader;
 
 import com.scvngr.levelup.core.model.AccessToken;
 import com.scvngr.levelup.core.model.factory.json.AccessTokenJsonFactory;
-import com.scvngr.levelup.core.net.ApiStatus;
+import com.scvngr.levelup.core.net.LevelUpStatus;
 import com.scvngr.levelup.core.net.request.factory.AccessTokenRequestFactory;
 import com.scvngr.levelup.core.sample.ProgressDialogLoaderCallbacks;
 import com.scvngr.levelup.core.sample.ProgressFragment;
@@ -72,7 +72,7 @@ public class AccessTokenLoaderCallbacks extends
         super.onLoadFinished(loader, result);
 
         // When the server responds with a 200 OK, that signals a successful login.
-        if (result.getResponse().getStatus().equals(ApiStatus.OK)) {
+        if (result.getResponse().getStatus().equals(LevelUpStatus.OK)) {
             AccessToken accessToken = result.getResult();
 
             /*

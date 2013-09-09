@@ -1,9 +1,9 @@
 .metadata
 gen/
 bin/
-core-sdk-sample/.classpath
-core-sdk-sample/.project
-core-sdk-sample/.settings
-core-sdk-sample/res/values/strings_api_keys.xml
+levelup-sdk-sample/.classpath
+levelup-sdk-sample/.project
+levelup-sdk-sample/.settings
+levelup-sdk-sample/res/values/strings_api_keys.xml
 local.properties
 dist/
