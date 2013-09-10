@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="levelup_oauth_client_id"></string>
+    <string name="levelup_api_key"></string>
     <string name="levelup_braintree_clientside_encryption_key" formatted="false" translatable="false">MIIBCgKCAQEAp49Q/fDFmke3AcTyzFcd82aO6sTubTzAzX+bLUt8Jf0qqkj2ktoSsBtJfHHQ6c26+9pYNPSd9gviPoqitKmnfu1ZJiuxTkjG/tIxbtblhU4v6gAEbynj0GI58rrURJwtCwHKzrYXMx64BDV2xajfqbuqrHu7wYEjBFv2WZ0ugAv6gf7WcK/YKfN5LgHoNc5toEoqTT0tOAeYF9eNH92H4rGFIl8wpuYSL8WqmLKmhJIxC6I9sO/ZJQX+uMOqohZeJdRDDrKGvwzsEgR9x3qCgexdb8iwlpDWd6AYog5BRNUu7qI9hdvODhBklcyccMZdfnZnzmtfRqXV6XOsHA5CWQIDAQAB</string>
 
 </resources>
