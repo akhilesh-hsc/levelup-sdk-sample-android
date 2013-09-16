@@ -3,7 +3,9 @@ package com.scvngr.levelup.core.sample;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -11,6 +13,9 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
 import com.scvngr.levelup.core.model.PaymentToken;
@@ -27,6 +32,8 @@ import com.scvngr.levelup.core.ui.view.HashMapCache;
 import com.scvngr.levelup.core.ui.view.LevelUpCodeLoader;
 import com.scvngr.levelup.core.ui.view.LevelUpCodeView;
 import com.scvngr.levelup.core.ui.view.LevelUpCodeView.OnCodeLoadListener;
+
+import java.lang.ref.WeakReference;
 
 /**
  * A fragment that displays the user's LevelUp payment code. This also refreshes the cached payment
@@ -72,6 +79,11 @@ public final class PaymentCodeFragment extends Fragment {
     private int mColor = 0;
 
     /**
+     * Handler to track timeouts for keeping the screen bright.
+     */
+    private PaymentCodeFragmentHandler mHandler = new PaymentCodeFragmentHandler(this);
+
+    /**
      * In-memory cache of the payment token.
      */
     private String mPaymentToken;
@@ -109,6 +121,16 @@ public final class PaymentCodeFragment extends Fragment {
      */
     private static final int UI_STATE_ERROR_MESSAGE = 102;
 
+    /**
+     * Message for {@link PaymentCodeFragmentHandler} to turn off the screen brightness override.
+     */
+    private static final int MSG_TURN_OFF_SCREEN_BRIGHT = 200;
+
+    /**
+     * The timeout before the screen brightness override. Set to 1 minute.
+     */
+    private static final long SCREEN_BRIGHT_TIMEOUT_MILLIS = 60 * 1000;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +166,8 @@ public final class PaymentCodeFragment extends Fragment {
         super.onPause();
 
         mPaymentToken = null;
+        setForceFullBrightness(false);
+        mHandler.removeMessages(MSG_TURN_OFF_SCREEN_BRIGHT);
     }
 
     @Override
@@ -152,6 +176,14 @@ public final class PaymentCodeFragment extends Fragment {
 
         showCachedPaymentCodeAndReload();
         preCacheDeferredCodes();
+
+        setForceFullBrightness(true);
+
+        /*
+         * In a production app, this should also be called when the user interacts with the app. For
+         * brevity's sake, this will be left as an exercise to the reader.
+         */
+        resetIdleTimeout();
     }
 
     @Override
@@ -188,6 +220,46 @@ public final class PaymentCodeFragment extends Fragment {
             // Defer the pre-caching until the payment token has been loaded.
             mPreCacheTipsWasDeferred = true;
         }
+    }
+
+    /**
+     * Resets the idle timeout that keeps the screen bright. This should be called upon user
+     * interaction.
+     */
+    public void resetIdleTimeout() {
+        mHandler.removeMessages(MSG_TURN_OFF_SCREEN_BRIGHT);
+        mHandler.sendEmptyMessageDelayed(MSG_TURN_OFF_SCREEN_BRIGHT, SCREEN_BRIGHT_TIMEOUT_MILLIS);
+    }
+
+    /**
+     * Forces the screen to be full-brightness and not dim.
+     * 
+     * @param isFullBrightness if true, sets the flags that force the screen to be fully bright and
+     *        kept on. False clears the flags.
+     */
+    private void setForceFullBrightness(boolean isFullBrightness) {
+        Window window = getActivity().getWindow();
+
+        // Bail if the window has gone away.
+        if (window == null) {
+            return;
+        }
+
+        if (isFullBrightness) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+
+        LayoutParams attributes = window.getAttributes();
+
+        if (isFullBrightness) {
+            attributes.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+        } else {
+            attributes.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
+        }
+
+        window.setAttributes(attributes);
     }
 
     /**
@@ -455,4 +527,30 @@ public final class PaymentCodeFragment extends Fragment {
             }
         }
     }
+
+    /**
+     * Handler to send handle the screen bright override timeout.
+     * 
+     * @see PaymentCodeFragment#resetIdleTimeout()
+     */
+    private static class PaymentCodeFragmentHandler extends Handler {
+        private WeakReference<PaymentCodeFragment> mFragment;
+
+        public PaymentCodeFragmentHandler(PaymentCodeFragment fragment) {
+            mFragment = new WeakReference<PaymentCodeFragment>(fragment);
+        }
+
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_TURN_OFF_SCREEN_BRIGHT:
+                    PaymentCodeFragment fragment = mFragment.get();
+                    if (fragment != null) {
+                        fragment.setForceFullBrightness(false);
+                    }
+                    break;
+                default:
+                    // Do nothing.
+            }
+        };
+    };
 }
