@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="levelup_api_authority" formatted="false" translatable="false">api.staging-levelup.com</string>
+    <string name="levelup_api_authority" formatted="false" translatable="false">api.thelevelup.com</string>
 
 </resources>
