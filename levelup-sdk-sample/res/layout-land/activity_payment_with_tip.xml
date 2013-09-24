@@ -4,16 +4,20 @@
     android:layout_height="match_parent"
     tools:context=".PaymentWithTipActivity" >
 
-    <FrameLayout
+    <fragment
         android:id="@+id/payment_code_fragment"
+        android:name="com.scvngr.levelup.core.sample.PaymentCodeFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        tools:layout="@layout/fragment_payment" />
 
-    <FrameLayout
+    <fragment
         android:id="@+id/tip_selector_fragment"
+        android:name="com.scvngr.levelup.core.sample.example3.TipSelectorFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/payment_code_fragment" />
 
 </RelativeLayout>
