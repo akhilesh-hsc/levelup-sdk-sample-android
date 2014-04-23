@@ -23,10 +23,28 @@ application by setting them to 0.
 Building
 --------
 
-To build this demo, everything should be set except one thing: you need an API
-key. At the moment, the method for acquiring said key is out of the scope of
-this document.
+To build this demo, clone this repository. It uses [git submodules][submodules]
+to include its dependency on the LevelUp SDK at a compatible version, so use
+`--recurse-submodules` when cloning to ensure the SDK dependency is checked out:
+
+```
+git clone https://github.com/TheLevelUp/levelup-sdk-sample-android.git --recurse-submodules
+```
+
+If you update the sample to a newer version, you'll need to update submodules to
+make sure you're referencing the correct SDK version and pulling in any
+potential new dependencies:
+
+```
+git submodule update --init --recursive
+```
+
+Once cloned, everything should be set except one thing: you need an API
+key. You can request an API key at the [LevelUp Developer site][signup].
 
 Once you have it, copy `doc/strings_api_keys.xml` to
 `levelup-sdk-sample/res/values/strings_api_keys.xml` then place the key in the
 `levelup_api_key` string.
+
+[signup]: http://developer.thelevelup.com/getting-started/sign-up/
+[submodules]: http://git-scm.com/book/en/Git-Tools-Submodules
