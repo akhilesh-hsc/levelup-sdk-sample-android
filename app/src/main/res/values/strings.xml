@@ -2,19 +2,22 @@
 <resources>
 
     <string name="app_name">LevelUp SDK Sample</string>
+    <string name="app_name_enterprise">LevelUp Enterprise SDK Sample</string>
     <string name="intro">Select an activity from below</string>
-    <string name="menu_combined">1. Combined Login/Pay activity</string>
-    <string name="menu_individual">2. Individual Login/Pay activities</string>
-    <string name="menu_register">3. Register</string>
-    <string name="menu_payment_with_tip">4. Payment with tip</string>
-    <string name="menu_credit_card_add">5. Add Credit Card</string>
+    <string name="menu_combined">Combined Login/Pay activity</string>
+    <string name="menu_individual">Individual Login/Pay activities</string>
+    <string name="menu_register">Register</string>
+    <string name="menu_payment_with_tip">Payment with tip</string>
+    <string name="menu_credit_card_add">Add Credit Card</string>
+    <string name="menu_request_permissions">Request Permissions</string>
+    <string name="menu_verifying_request_permissions">Request Permissions (with verification)</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_button_sign_in">Sign In</string>
     <string name="login_with_level_up">Login with LevelUp</string>
     <string name="login_progress_message">Logging you in…</string>
     <string name="logout">Logout</string>
-    <string name="payment_ineligible_notice">This account isn\'t eligible for payment. Please check the credit card(s) associated it.</string>
+    <string name="payment_ineligible_notice">This account isn’t eligible for payment. Please check the credit card(s) associated it.</string>
     <string name="title_register">Register with LevelUp</string>
     <string name="register_hint_last_name">Last name</string>
     <string name="register_hint_first_name">First name</string>
@@ -30,5 +33,10 @@
     <string name="card_add_hint_cvv">CVV (Security Code)</string>
     <string name="button_card_add">Add Card</string>
     <string name="card_add_progress">Adding your card…</string>
+    <string name="title_permissions_request">Request Permissions</string>
+    <string name="permissions_request_levelup_missing">For this demo to function, a version of LevelUp which supports Deep Link authorization must be installed. Additionally, your app’s signature (in the same format that’s needed for Google maps) must be registered with the LevelUp web service.</string>
+    <string name="permissions_request_levelup_installed">Before trying this demo, make sure your app’s signature is registered with the LevelUp web service.</string>
+    <string name="button_request_permissions">Request Permissions</string>
+    <string name="enterprise_demo">Enterprise Demo</string>
 
 </resources>

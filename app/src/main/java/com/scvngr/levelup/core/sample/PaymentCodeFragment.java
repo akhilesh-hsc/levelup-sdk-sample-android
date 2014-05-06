@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.scvngr.levelup.core.model.PaymentToken;
 import com.scvngr.levelup.core.model.factory.json.PaymentTokenJsonFactory;
 import com.scvngr.levelup.core.model.qr.LevelUpCode;
+import com.scvngr.levelup.core.model.tip.PercentageTip;
 import com.scvngr.levelup.core.net.LevelUpStatus;
 import com.scvngr.levelup.core.net.request.factory.PaymentTokenRequestFactory;
 import com.scvngr.levelup.core.sample.net.RequestLoader;
@@ -431,7 +432,7 @@ public final class PaymentCodeFragment extends Fragment {
     private void preCacheCodesForTipsInternal(String cachedPaymentToken, int[] tips) {
         for (int tipPercent : tips) {
             mCodeLoader.loadLevelUpCode(LevelUpCode.encodeLevelUpCode(cachedPaymentToken, mColor,
-                    tipPercent));
+                    new PercentageTip(tipPercent)));
         }
     }
 
@@ -478,7 +479,7 @@ public final class PaymentCodeFragment extends Fragment {
      * @param paymentTokenData the payment token.
      */
     private void showPaymentCode(String paymentTokenData) {
-        mCodeView.setLevelUpCode(LevelUpCode.encodeLevelUpCode(paymentTokenData, mColor, mTip),
+        mCodeView.setLevelUpCode(LevelUpCode.encodeLevelUpCode(paymentTokenData, mColor, new PercentageTip(mTip)),
                 mCodeLoader);
     }
 

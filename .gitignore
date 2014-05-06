@@ -4,10 +4,7 @@
 .metadata
 gen/
 bin/
-levelup-sdk-sample/.classpath
-levelup-sdk-sample/.project
-levelup-sdk-sample/.settings
-levelup-sdk-sample/res/values/strings_api_keys.xml
+app/src/main/res/values/strings_api_keys.xml
 local.properties
 dist/
 build/

@@ -10,12 +10,20 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.scvngr.levelup.core.sample.DemoActivity"
+            android:taskAffinity="com.scvngr.levelup.core.sample.standard"
+            android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.scvngr.levelup.core.sample.EnterpriseDemoActivity"
+            android:taskAffinity="com.scvngr.levelup.core.sample.enterprise"
+            android:launchMode="singleTask"
+            android:label="@string/app_name_enterprise" >
         </activity>
         <activity
             android:name="com.scvngr.levelup.core.sample.example1.LoginAndPaymentActivity"
@@ -40,6 +48,14 @@
          <activity
             android:name="com.scvngr.levelup.core.sample.example4.CreditCardAddActivity"
             android:label="@string/title_credit_card_add" >
+        </activity>
+         <activity
+            android:name="com.scvngr.levelup.core.sample.example5.PermissionsRequestActivity"
+            android:label="@string/title_permissions_request" >
+        </activity>
+         <activity
+            android:name="com.scvngr.levelup.core.sample.example5.VerifyingPermissionsRequestActivity"
+            android:label="@string/title_permissions_request" >
         </activity>
     </application>
 

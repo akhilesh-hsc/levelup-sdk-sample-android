@@ -62,8 +62,12 @@ public class SharedPreferencesAccessTokenRetriever implements AccessTokenRetriev
         AccessToken accessToken = null;
 
         // Check to make sure we have them stored properly.
-        if (!TextUtils.isEmpty(accessTokenString) && userId != USER_ID_MISSING) {
-            accessToken = new AccessToken(accessTokenString, userId);
+        if (!TextUtils.isEmpty(accessTokenString)) {
+            if (userId == USER_ID_MISSING) {
+                accessToken = new AccessToken(accessTokenString);
+            } else {
+                accessToken = new AccessToken(accessTokenString, userId);
+            }
         }
 
         return accessToken;

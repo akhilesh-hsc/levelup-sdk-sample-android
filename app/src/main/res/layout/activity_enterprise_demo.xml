@@ -13,21 +13,33 @@
         android:textAppearance="@android:style/TextAppearance.Large" />
 
     <Button
+        android:id="@+id/button_combined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_combined" />
+
+    <Button
+        android:id="@+id/button_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_individual" />
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_register" />
+
+    <Button
         android:id="@+id/button_payment_with_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/menu_payment_with_tip" />
 
     <Button
-        android:id="@+id/button_request_permissions"
+        android:id="@+id/button_credit_card_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/menu_request_permissions" />
-
-    <Button
-        android:id="@+id/button_verifying_request_permissions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_verifying_request_permissions" />
+        android:text="@string/menu_credit_card_add" />
 
 </LinearLayout>
