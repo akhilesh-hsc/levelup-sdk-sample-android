@@ -94,7 +94,7 @@ public class RequestLoader<T extends Parcelable> extends AsyncTaskLoader<Request
             // Don't mask other errors with a parsing error.
             if (response.getStatus().equals(LevelUpStatus.OK)) {
                 LogManager.e("JSONException while parsing model", e);
-                response = new LevelUpResponse(data, LevelUpStatus.ERROR_PARSING, e);
+                response = new LevelUpResponse(data, LevelUpStatus.ERROR_PARSING);
             }
         }
 

@@ -1,0 +1,3 @@
+include ':app', ':levelUpCoreLib', ':levelUpDeeplinkAuthLib'
+project(':levelUpCoreLib').projectDir = new File('levelup-sdk-android/levelUpCoreLib')
+project(':levelUpDeeplinkAuthLib').projectDir = new File('levelup-sdk-android/levelUpDeeplinkAuthLib')

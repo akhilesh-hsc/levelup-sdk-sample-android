@@ -1,3 +1,6 @@
+*.class
+*.swp
+*.iml
 .metadata
 gen/
 bin/
@@ -7,3 +10,10 @@ levelup-sdk-sample/.settings
 levelup-sdk-sample/res/values/strings_api_keys.xml
 local.properties
 dist/
+build/
+.gradle
+.idea/libraries
+.idea/modules.xml
+.idea/tasks.xml
+.idea/workspace.xml
+.idea/dictionaries
