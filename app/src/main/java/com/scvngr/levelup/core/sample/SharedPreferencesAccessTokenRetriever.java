@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.scvngr.levelup.core.annotation.Nullable;
 import com.scvngr.levelup.core.model.AccessToken;
 import com.scvngr.levelup.core.net.AccessTokenRetriever;
 

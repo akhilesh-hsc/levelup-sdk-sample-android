@@ -3,6 +3,7 @@ package com.scvngr.levelup.core.sample.qr;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -11,7 +12,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
-import com.scvngr.levelup.core.annotation.Nullable;
 import com.scvngr.levelup.core.sample.Constants;
 import com.scvngr.levelup.core.ui.view.LevelUpQrCodeGenerator;
 import com.scvngr.levelup.core.util.LogManager;
