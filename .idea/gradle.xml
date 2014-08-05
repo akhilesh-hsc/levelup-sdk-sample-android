@@ -9,8 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/levelup-sdk-android/levelUpCoreLib" />
-            <option value="$PROJECT_DIR$/levelup-sdk-android/levelUpDeeplinkAuthLib" />
           </set>
         </option>
       </GradleProjectSettings>
