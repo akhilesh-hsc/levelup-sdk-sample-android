@@ -47,7 +47,7 @@ dependencies {
      *
      * See http://issues.gradle.org/browse/GRADLE-3081 .
      */
-    compile('com.scvngr:levelup-sdk-android-core:2.1.2@aar') { transitive = true }
-    compile('com.scvngr:levelup-sdk-android-deeplink-auth:2.1.2@aar') { transitive = true }
+    compile('com.scvngr:levelup-sdk-android-core:2.2.5@aar') { transitive = true }
+    compile('com.scvngr:levelup-sdk-android-deeplink-auth:2.2.5@aar') { transitive = true }
     compile 'com.google.zxing:core:3.1.0'
 }

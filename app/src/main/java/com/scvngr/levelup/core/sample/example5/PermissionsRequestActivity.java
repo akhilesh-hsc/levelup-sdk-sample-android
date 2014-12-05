@@ -25,7 +25,6 @@ import com.scvngr.levelup.core.net.Permissions;
 import com.scvngr.levelup.core.sample.R;
 import com.scvngr.levelup.core.sample.SharedPreferencesKeys;
 import com.scvngr.levelup.core.util.LogManager;
-import com.scvngr.levelup.deeplinkauth.DeepLinkAuthUtil;
 import com.scvngr.levelup.deeplinkauth.LevelUpDeepLinkIntegrator;
 import com.scvngr.levelup.deeplinkauth.LevelUpDeepLinkIntegrator.PermissionsRequestResult;
 
