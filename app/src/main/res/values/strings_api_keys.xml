@@ -12,16 +12,9 @@
   or implied. See the License for the specific language governing permissions and limitations under
   the License.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<resources>
 
-    <fragment
-        android:id="@+id/register_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.example.levelup.core.app.RegisterFragment"
-        tools:layout="@layout/fragment_register" />
+    <string name="levelup_api_key">TODO</string>
+    <string name="levelup_app_id">TODO</string>
 
-</FrameLayout>
+</resources>

@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/fragment_login"
-        android:name="com.scvngr.levelup.core.sample.LoginFragment"
+        android:name="com.example.levelup.core.app.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_login" />

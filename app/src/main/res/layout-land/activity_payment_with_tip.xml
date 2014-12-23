@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/payment_code_fragment"
-        android:name="com.scvngr.levelup.core.sample.PaymentCodeFragment"
+        android:name="com.example.levelup.core.app.PaymentCodeFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/tip_selector_fragment"
-        android:name="com.scvngr.levelup.core.sample.example3.TipSelectorFragment"
+        android:name="com.example.levelup.core.app.example3.TipSelectorFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

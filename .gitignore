@@ -4,7 +4,6 @@
 .metadata
 gen/
 bin/
-app/src/main/res/values/strings_api_keys.xml
 local.properties
 dist/
 build/

@@ -31,26 +31,15 @@ menu.
 Building
 --------
 
-To build this demo, clone this repository. It uses [git submodules][submodules] to include its
-dependency on the LevelUp SDK at a compatible version, so use `--recurse-submodules` when cloning to
-ensure the SDK dependency is checked out:
+To build this demo, clone this repository:
 
 ```
-git clone https://github.com/TheLevelUp/levelup-sdk-sample-android.git --recurse-submodules
+git clone https://github.com/TheLevelUp/levelup-sdk-sample-android.git
 ```
 
-If you update the sample to a newer version, you'll need to update submodules to make sure you're
-referencing the correct SDK version and pulling in any potential new dependencies:
-
-```
-git submodule update --init --recursive
-```
-
-Once cloned, everything should be set except one thing: you need an API key. You can request an API
-key at the [LevelUp Developer site][signup].
-
-Once you have it, copy `doc/strings_api_keys.xml` to `app/src/main/res/values/strings_api_keys.xml`
-then place the key in the `levelup_api_key` string and your app ID in the `levelup_app_id` string.
+You will also need an API key and App ID which you can get at the [LevelUp Developer site][signup].
+Once you have them, update `levelup_api_key` and `levelup_app_id` in
+[strings_api_keys.xml](app/src/main/res/values/strings_api_keys.xml) by replacing the `TODO` values.
 
 Signature Registration
 ----------------------
@@ -59,9 +48,9 @@ There's one final step needed to complete a non-Enterprise LevelUp integration: 
 your app's signature. Please see the [deep link auth documentation on our developer
 site][deep-link-auth] for complete instructions on how to generate this signature.
 
-[lusdk]: http://developer.thelevelup.com/mobile-sdks/getting-started/android/
 [auth-flow]: http://developer.thelevelup.com/getting-started/mobile-authentication-flow/
 [deep-link-auth]: http://developer.thelevelup.com/mobile-sdks/login-registration/deep-link-auth/
+[enterprise]: http://developer.thelevelup.com/enterprise-sdk/
+[lusdk]: http://developer.thelevelup.com/mobile-sdks/getting-started/android/
 [signup]: http://developer.thelevelup.com/getting-started/sign-up/
 [submodules]: http://git-scm.com/book/en/Git-Tools-Submodules
-[enterprise]: http://developer.thelevelup.com/enterprise-sdk/
