@@ -1,4 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+/*
+ * Disable pre-dexing if build is being run with the "-PdisablePreDex" flag. This is helpful in
+ * one-time build environments like CI servers; see Google's recommendations at
+ * http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.
+ */
+project.ext.preDexLibs = !project.hasProperty('disablePreDex')
+
+subprojects {
+    project.plugins.whenPluginAdded { plugin ->
+        if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name)
+                || "com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        }
+    }
+}
+
 buildscript {
     repositories {
         mavenCentral()
