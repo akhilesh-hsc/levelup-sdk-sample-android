@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.example.levelup.core.app.example.oauth2.LevelUpOAuth2Activity;
 import com.example.levelup.core.app.example3.PaymentWithTipActivity;
 import com.example.levelup.core.app.example5.PermissionsRequestActivity;
 import com.example.levelup.core.app.example5.VerifyingPermissionsRequestActivity;
@@ -39,6 +40,7 @@ public class DemoActivity extends FragmentActivity implements OnClickListener {
         findViewById(R.id.button_payment_with_tip).setOnClickListener(this);
         findViewById(R.id.button_request_permissions).setOnClickListener(this);
         findViewById(R.id.button_verifying_request_permissions).setOnClickListener(this);
+        findViewById(R.id.button_oauth2_example).setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +62,9 @@ public class DemoActivity extends FragmentActivity implements OnClickListener {
                 break;
             case R.id.button_verifying_request_permissions:
                 startActivity(new Intent(this, VerifyingPermissionsRequestActivity.class));
+                break;
+            case R.id.button_oauth2_example:
+                startActivity(new Intent(this, LevelUpOAuth2Activity.class));
                 break;
             default:
                 // Do nothing.

@@ -17,6 +17,7 @@
     <string name="app_name">LevelUp SDK Sample</string>
     <string name="app_name_enterprise">LevelUp Enterprise SDK Sample</string>
     <string name="button_card_add">Add Card</string>
+    <string name="button_oauth2_example">OAuth2 Example</string>
     <string name="button_request_permissions">Request Permissions</string>
     <string name="card_add_hint_credit_card_number">Card Number</string>
     <string name="card_add_hint_cvv">CVV (Security Code)</string>
@@ -41,6 +42,9 @@
     <string name="menu_request_permissions">Request Permissions</string>
     <string name="menu_verifying_request_permissions">Request Permissions (with verification)</string>
     <string name="api_key_or_app_id_not_configured_message">LevelUp API key or App ID is not configured. See README.md for more info.</string>
+    <string name="oauth_access_token">Access Token:</string>
+    <string name="oauth_email_hint">Enter email to authenticate or register with.</string>
+    <string name="oauth_load_web_view">Load LevelUpOAuthView</string>
     <string name="payment_ineligible_notice">This account isn’t eligible for payment. Please check the credit card(s) associated it.</string>
     <string name="permissions_request_levelup_installed">Before trying this demo, make sure your app’s signature is registered with the LevelUp web service.</string>
     <string name="permissions_request_levelup_missing">For this demo to function, a version of LevelUp which supports Deep Link authorization must be installed. Additionally, your app’s signature (in the same format that’s needed for Google maps) must be registered with the LevelUp web service.</string>
@@ -50,6 +54,7 @@
     <string name="register_hint_last_name">Last name</string>
     <string name="register_progress_message">Creating your account…</string>
     <string name="title_credit_card_add">Add a Credit Card</string>
+    <string name="title_oauth2">OAuth2 Sample</string>
     <string name="title_permissions_request">Request Permissions</string>
     <string name="title_register">Register with LevelUp</string>
 

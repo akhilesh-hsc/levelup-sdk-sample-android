@@ -61,6 +61,10 @@
         <activity
             android:name=".example5.VerifyingPermissionsRequestActivity"
             android:label="@string/title_permissions_request" />
+
+        <activity
+            android:name=".example.oauth2.LevelUpOAuth2Activity"
+            android:label="@string/title_oauth2" />
     </application>
 
 </manifest>
