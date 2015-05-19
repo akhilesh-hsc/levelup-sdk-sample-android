@@ -41,6 +41,17 @@ You will also need an API key and App ID which you can get at the [LevelUp Devel
 Once you have them, update `levelup_api_key` and `levelup_app_id` in
 [strings_api_keys.xml](app/src/main/res/values/strings_api_keys.xml) by replacing the `TODO` values.
 
+Build Type
+-------------
+
+Below are the available Gradle build types for the sample app.
+
+|Type|Description|
+|------|-----------|
+| debug | Debug build pointing to the sandbox endpoints. |
+| productionDebug | Debug build pointing to the production endpoints. |
+| release | Release build pointing to the production endpoints. |
+
 Signature Registration
 ----------------------
 

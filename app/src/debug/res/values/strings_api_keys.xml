@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyDashes">
+
+    <string name="levelup_api_key">TODO</string>
+    <string name="levelup_app_id">TODO</string>
+
+</resources>

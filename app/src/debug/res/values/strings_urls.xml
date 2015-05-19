@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="levelup_content_provider_authority" formatted="false" translatable="false">com.scvngr.levelup.app.sandbox.debug.levelupprovider</string>
+
+</resources>

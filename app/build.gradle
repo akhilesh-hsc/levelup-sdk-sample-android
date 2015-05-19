@@ -28,9 +28,22 @@ android {
     }
 
     buildTypes {
+        debug {
+            description 'Debug-signed build pointing to LevelUp\'s sandbox server'
+            applicationIdSuffix '.debug.sandbox'
+            versionNameSuffix '.debug.sandbox'
+        }
+
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        productionDebug {
+            description 'Debug-signed build pointing to LevelUp\'s production server'
+            initWith debug
+            applicationIdSuffix '.debug.production'
+            versionNameSuffix '.debug.production'
         }
     }
 
