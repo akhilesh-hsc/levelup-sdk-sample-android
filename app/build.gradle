@@ -14,12 +14,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion '21.1.2'
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 19
+        minSdkVersion 8
+        targetSdkVersion 22
 
         // The Application ID may be modified to override the manifest package.
         applicationId 'com.example.levelup.core.app'
@@ -41,7 +41,7 @@ android {
 }
 
 dependencies {
-    compile 'com.scvngr:levelup-sdk-android-core:2.4.1'
-    compile 'com.scvngr:levelup-sdk-android-deeplink-auth:2.4.1'
+    compile 'com.scvngr:levelup-sdk-android-core:2.6.0'
+    compile 'com.scvngr:levelup-sdk-android-deeplink-auth:2.6.0'
     compile 'com.google.zxing:core:3.1.0'
 }
