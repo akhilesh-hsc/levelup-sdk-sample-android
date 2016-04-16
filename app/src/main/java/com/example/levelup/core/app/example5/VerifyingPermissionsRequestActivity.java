@@ -94,7 +94,7 @@ public class VerifyingPermissionsRequestActivity extends FragmentActivity {
 
         if (null != result) {
             if (result.isSuccessful()) {
-                final String accessToken = result.getAccessToken();
+                String accessToken = result.getAccessToken();
 
                 mStatusView.setText("W00t, permission granted! Check out my access token: "
                         + accessToken);

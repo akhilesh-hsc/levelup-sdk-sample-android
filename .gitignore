@@ -10,10 +10,7 @@ gen/
 *.swp
 
 .DS_Store
-.crashlytics_data
 .gradletasknamecache
 .metadata
-com_crashlytics_export_strings.xml
-crashlytics-build.properties
 local.properties
 localdeveloper.properties

@@ -8,10 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.levelup.core.app.R;
-import com.example.levelup.core.app.util.ApiSetupUtil;
 import com.scvngr.levelup.core.net.Permissions;
 import com.scvngr.levelup.core.ui.view.LevelUpOAuth2View;
+
+import com.example.levelup.core.app.R;
+import com.example.levelup.core.app.util.ApiSetupUtil;
 
 import java.util.Collections;
 
@@ -26,7 +27,7 @@ public class LevelUpOAuth2Activity extends FragmentActivity {
     private EditText mEmailView;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oauth2_example);
 
@@ -46,7 +47,7 @@ public class LevelUpOAuth2Activity extends FragmentActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View v) {
+            public void onClick(View v) {
                 mWebView.setVisibility(View.VISIBLE);
                 /*
                  * Begin an OAuth2 request to obtain an access token for the given email.
@@ -62,7 +63,7 @@ public class LevelUpOAuth2Activity extends FragmentActivity {
      * Call {@link LevelUpOAuth2View#saveState(Bundle)} to save the view's transient state.
      */
     @Override
-    protected void onSaveInstanceState(final Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mWebView.saveState(outState);
     }
@@ -71,7 +72,7 @@ public class LevelUpOAuth2Activity extends FragmentActivity {
      * Call {@link LevelUpOAuth2View#restoreState(Bundle)} to restore the view's transient state.
      */
     @Override
-    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mWebView.restoreState(savedInstanceState);
     }
@@ -83,7 +84,7 @@ public class LevelUpOAuth2Activity extends FragmentActivity {
     private LevelUpOAuth2View.OAuth2Callback mCallback = new LevelUpOAuth2View.OAuth2Callback() {
 
         @Override
-        public void onAccessTokenReceived(@NonNull final String accessToken) {
+        public void onAccessTokenReceived(@NonNull String accessToken) {
             mAccessTokenTextView.setText(accessToken);
             mWebView.setVisibility(View.GONE);
             mAccessTokenLabelTextView.setVisibility(View.VISIBLE);
@@ -91,7 +92,7 @@ public class LevelUpOAuth2Activity extends FragmentActivity {
         }
 
         @Override
-        public void onError(@NonNull final String errorCode, @NonNull final String errorMessage) {
+        public void onError(@NonNull String errorCode, @NonNull String errorMessage) {
             mAccessTokenTextView.setText(errorCode + ":" + errorMessage);
             mWebView.setVisibility(View.GONE);
             mAccessTokenLabelTextView.setVisibility(View.GONE);

@@ -22,13 +22,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.levelup.core.app.Constants;
-import com.example.levelup.core.app.R;
-import com.example.levelup.core.app.SharedPreferencesKeys;
 import com.scvngr.levelup.core.net.Permissions;
 import com.scvngr.levelup.core.util.LogManager;
 import com.scvngr.levelup.deeplinkauth.LevelUpDeepLinkIntegrator;
 import com.scvngr.levelup.deeplinkauth.LevelUpDeepLinkIntegrator.PermissionsRequestResult;
+
+import com.example.levelup.core.app.Constants;
+import com.example.levelup.core.app.R;
+import com.example.levelup.core.app.SharedPreferencesKeys;
 
 /**
  * A basic example of how to get a LevelUp access token using the {@link LevelUpDeepLinkIntegrator}.
@@ -74,7 +75,7 @@ public class PermissionsRequestActivity extends FragmentActivity {
 
         if (null != result) {
             if (result.isSuccessful()) {
-                final String accessToken = result.getAccessToken();
+                String accessToken = result.getAccessToken();
 
                 mStatusView.setText("W00t, permission granted! Check out my access token: "
                         + accessToken);

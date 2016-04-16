@@ -14,7 +14,7 @@ public final class ApiSetupUtil {
 
     public static void checkApiKey(@NonNull Activity activity) {
         // Warn if there is no API key setup.
-        final String apiKey = activity.getString(R.string.levelup_api_key);
+        String apiKey = activity.getString(R.string.levelup_api_key);
         if (Constants.PLACEHOLDER.equals(apiKey)) {
             Toast.makeText(activity,
                     activity.getString(R.string.api_key_or_app_id_not_configured_message),

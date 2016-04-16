@@ -27,11 +27,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.scvngr.levelup.core.model.AccessToken;
+
 import com.example.levelup.core.app.net.AccessTokenLoaderCallbacks;
 import com.example.levelup.core.app.net.AccessTokenLoaderCallbacks.OnLoginListener;
 import com.example.levelup.core.app.net.RequestLoader.RequestResult;
 import com.example.levelup.core.app.net.RequestResultUtil;
-import com.scvngr.levelup.core.model.AccessToken;
 
 /**
  * <p>
@@ -159,7 +160,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
      * @param password the password for the account.
      */
     private void login(String email, String password) {
-        final Bundle args = new Bundle();
+        Bundle args = new Bundle();
         args.putString(AccessTokenLoaderCallbacks.ARG_EMAIL, email);
         args.putString(AccessTokenLoaderCallbacks.ARG_PASSWORD, password);
 

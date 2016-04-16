@@ -18,6 +18,9 @@ import android.graphics.Color;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
+import com.scvngr.levelup.core.ui.view.LevelUpQrCodeGenerator;
+import com.scvngr.levelup.core.util.LogManager;
+
 import com.example.levelup.core.app.Constants;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -26,8 +29,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
-import com.scvngr.levelup.core.ui.view.LevelUpQrCodeGenerator;
-import com.scvngr.levelup.core.util.LogManager;
 
 /**
  * Generates LevelUp QR codes using the included ZXing library.
@@ -59,9 +60,9 @@ public final class ZXingCodeGenerator implements LevelUpQrCodeGenerator {
      * @return an immutable bitmap of the QR code that was generated.
      * @throws WriterException if there was a problem generating the bitmap
      */
-    private static LevelUpQrCodeImage getQrCodeBitmapOrThrow(final String qrCodeDataString)
+    private static LevelUpQrCodeImage getQrCodeBitmapOrThrow(String qrCodeDataString)
             throws WriterException {
-        final MultiFormatWriter writer = new MultiFormatWriter();
+        MultiFormatWriter writer = new MultiFormatWriter();
 
         /*
          * We end up encoding the QR twice, first encode the string and get the minimum size we can
@@ -69,18 +70,18 @@ public final class ZXingCodeGenerator implements LevelUpQrCodeGenerator {
          * bitmap that can be scaled on the code screen. This allows us to reduce the in-memory size
          * of the QR cache significantly.
          */
-        final QRCode code = Encoder.encode(qrCodeDataString, ErrorCorrectionLevel.L);
-        final BitMatrix result =
-                writer.encode(qrCodeDataString, BarcodeFormat.QR_CODE,
-                        code.getMatrix().getHeight(), code.getMatrix().getWidth(), null);
-        final int width = result.getWidth();
-        final int height = result.getHeight();
-        final int[] pixels = new int[width * height];
+        QRCode code = Encoder.encode(qrCodeDataString, ErrorCorrectionLevel.L);
+        BitMatrix result =
+                writer.encode(qrCodeDataString, BarcodeFormat.QR_CODE, code.getMatrix().getHeight(),
+                        code.getMatrix().getWidth(), null);
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
 
         // All are 0, or black, by default.
         // The output bitmap is rotated 180° from the input.
         for (int y = 0; y < height; y++) {
-            final int offset = y * width;
+            int offset = y * width;
             for (int x = 0; x < width; x++) {
                 if (result.get(x, y)) {
                     pixels[width * height - 1 - (offset + x)] = Color.BLACK;
